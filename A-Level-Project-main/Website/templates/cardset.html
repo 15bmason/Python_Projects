@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block title %}Cardset{% endblock %}
+{% block content %}
+<div class="container home-page-container">
+    <br />
+    <div class="row cardset-row">
+        {% for name in user.cardset %}
+        <div class="col-12 col-lg-4 col-md-6">
+            <div class="cardset">
+                <a class="cardset-a-tag cardset-inner" name="cardset-btn" id="cardset-btn" href="/cards?id={{ name.name }}" align="center">
+                <div class="cardset-inner" type="button">
+                    {{ name.name }}
+                    <button type="button" class="cardset-cls close" onClick="deleteCardset({{ name.id }})">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <br />
+    <form method="POST">
+        <textarea name="cardset-name" id="cardset-name" placeholder="Enter the cardset name." class="form-control"></textarea> 
+    <br />
+    <div class="container">
+        <div class="row justify-content-center">
+            <button type="submit" name="action" value="cardset" class="btn btn-primary cardset-btn">Create</button>
+        </div>
+    </div>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %} {% block title %}Cardset{% endblock %}
+{% block content %}
+<div class="container-fluid home-page-container">
+  <meta id="my_data" name="my_data" data="{{ all_cards }}">
+    <br />
+    <form method="POST"> 
+      <div class="row justify-content-center">
+      <button class="btn btn-primary cardset-btn header-btn" type="submit" name="form-name" value="shuffle-btn">Shuffle!</button>
+      <button class="btn btn-primary cardset-btn header-btn" type="submit" name="form-name" value="bubble-btn" style="margin-left: 5px;">Bubble Sort!</button>
+      </div>
+    </form> 
+    <div class="row cardset-row">
+          {% for i in all_cards %}
+            <div class="col-12 col-lg-4 col-md-6">
+                <div class="flip-card">
+                  <div class="flip-card-inner">
+                    <div class="container flip-card-front" id="flip-card-front">
+                      <div class="row">
+                        <div class="col-8 offset-2">
+                          <p id="question_text{{ i.id }}">{{ i.question }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container flip-card-back" id="flip-card-back" align="center">
+                      <div class="row">
+                        <div class="col-8 offset-2">
+                          <p id="answer_text{{ i.id }}">{{ i.answer }}</p>
+                        </div>
+                        <div class="col-2">
+                          <div class="row">
+                            <div class="col-12">
+                              <button class="btn card-btn" style="padding-left:0px;padding-right:0px;" onclick="deleteCard({{ i.id }})"><i class="fa-solid fa-xmark" ></i></button>
+                            </div>
+                            <div class="col-12">
+                              <button type="button" name="alter_btn{{ i.id }}" value="button{{i.id}}" id="button{{i.id}}" data-button="alter_btn{{ i.id }}" class="btn card-btn" data-toggle="modal" data-target="#myModal" style="padding-left:0px;padding-right:0px;"><i class="fa-solid fa-pen-to-square"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          {% endfor %}
+    </div>
+    <br />
+    <form method="POST">
+        <textarea name="question" id="question" placeholder="Enter the question." class="form-control"></textarea> 
+        <textarea name="answer" id="answer" placeholder="Enter the answer." class="form-control"></textarea> 
+    <br />
+    <div class="container">
+        <div class="row justify-content-center">
+            <button type="submit" name="form-name" value="cards" class="btn btn-primary cardset-btn">Create</button>
+        </div>
+    </div>
+</form>
+<br />
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="container modal-content">
+      <div class="row modal-header">
+        <div class="col-8 offset-2">
+          <h4 class="modal-title" style="text-align:center;">Edit card</h4>
+        </div>
+        <div class="col-2">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          <input type="hidden" name="card-id" id="card-id" value="">
+          <textarea name="modal_question" id="modal_question" class="form-control"></textarea> 
+          <textarea name="modal_answer" id="modal_answer" class="form-control"></textarea> 
+          <br />
+          <div class="container">
+            <div class="row justify-content-center">
+                <button type="submit" name="form-name" value="revised_cards" class="btn btn-primary cardset-btn">Edit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+</div>
+{% endblock %}
